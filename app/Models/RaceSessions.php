@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Meetings extends Model
+class RaceSessions extends Model
 {
     protected $fillable = [
         'circuit_key',
@@ -13,12 +14,14 @@ class Meetings extends Model
         'country_code',
         'country_key',
         'country_name',
+        'date_end',
         'date_start',
         'gmt_offset',
         'location',
         'meeting_key',
-        'meeting_name',
-        'meeting_official_name',
+        'session_key',
+        'session_name',
+        'session_type',
         'year',
     ];
 
@@ -26,46 +29,47 @@ class Meetings extends Model
         'circuit_key' => 'integer',
         'country_key' => 'integer',
         'meeting_key' => 'integer',
+        'session_key' => 'integer',
         'year' => 'integer',
     ];
 
-    public function sessions(): HasMany
+    public function meeting(): BelongsTo
     {
-        return $this->hasMany(Sessions::class, 'meeting_key', 'meeting_key');
+        return $this->belongsTo(Meetings::class, 'meeting_key', 'meeting_key');
     }
 
     public function lapTimes(): HasMany
     {
-        return $this->hasMany(LapTime::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(LapTime::class, 'session_key', 'session_key');
     }
 
     public function weather(): HasMany
     {
-        return $this->hasMany(Weather::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(Weather::class, 'session_key', 'session_key');
     }
 
     public function stints(): HasMany
     {
-        return $this->hasMany(Stints::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(Stints::class, 'session_key', 'session_key');
     }
 
     public function carData(): HasMany
     {
-        return $this->hasMany(CarData::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(CarData::class, 'session_key', 'session_key');
     }
 
     public function pits(): HasMany
     {
-        return $this->hasMany(Pit::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(Pit::class, 'session_key', 'session_key');
     }
 
     public function positions(): HasMany
     {
-        return $this->hasMany(Position::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(Position::class, 'session_key', 'session_key');
     }
 
     public function raceControls(): HasMany
     {
-        return $this->hasMany(RaceControl::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(RaceControl::class, 'session_key', 'session_key');
     }
 }

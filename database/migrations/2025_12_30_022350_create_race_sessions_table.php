@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('sessions', function (Blueprint $table) {
+        Schema::create('race_sessions', function (Blueprint $table) {
             // API Provided by openf1.org
             // Sample URL: https://api.openf1.org/v1/sessions?country_name=Belgium&session_name=Sprint&year=2023
             /*
