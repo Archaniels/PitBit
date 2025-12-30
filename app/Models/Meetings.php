@@ -31,7 +31,7 @@ class Meetings extends Model
 
     public function sessions(): HasMany
     {
-        return $this->hasMany(Sessions::class, 'meeting_key', 'meeting_key');
+        return $this->hasMany(RaceSessions::class, 'meeting_key', 'meeting_key');
     }
 
     public function lapTimes(): HasMany

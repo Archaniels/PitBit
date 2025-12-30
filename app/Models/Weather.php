@@ -39,6 +39,6 @@ class Weather extends Model
 
     public function session(): BelongsTo
     {
-        return $this->belongsTo(Sessions::class, 'session_key', 'session_key');
+        return $this->belongsTo(RaceSessions::class, 'session_key', 'session_key');
     }
 }
